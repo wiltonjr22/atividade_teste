@@ -1,6 +1,3 @@
-const  uuid  = require('uuid') 
-
-let users = []
 
 export const getUsers = (req, res) => {
     console.log(`Users in the database: ${users}`)
@@ -8,25 +5,21 @@ export const getUsers = (req, res) => {
     res.send(users)
 }
 
-export const createUser = (req, res) => {   
+export const createUsers = (req, res) => {   
     const user = req.body
 
-    users.push({...user, id: uuid()})
+    users.push({...user,})
     
     console.log(`User [${user.username}] added to the database.`)
 };
 
-export const getUser = (req, res) => {
-    res.send(req.params.id)
-};
-
-export const deleteUser = (req, res) => { 
+export const deleteUsers = (req, res) => { 
     console.log(`user with id ${req.params.id} has been deleted`)
     
     users = users.filter((user) => user.id !== req.params.id)
 };
 
-export const updateUser =  (req,res) => {
+export const updateUsers =  (req,res) => {
     const user = users.find((user) => user.id === req.params.id)
     
     user.username = req.body.username
