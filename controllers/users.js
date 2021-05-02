@@ -1,29 +1,58 @@
+const users = require('../models/user')
 
-export const getUsers = (req, res) => {
-    console.log(`Users in the database: ${users}`)
+module.exports = {
+    async create(request, response) {
+        try {
+            const result = await users.create(request.body);
+            response.status(201);
+            response.json(result);
+        } catch (error) {
+            response.status(500);
+            response.json(JsonError(request, response, 'Não foi possível adicionar o user'));
+        }
+    },
 
-    res.send(users)
-}
+    async read(request, response) {
+        try {
+            const result = await users.findAll({ raw: true });
+            response.json(result);
+        } catch (error) {
+            response.status(500);
+            response.json(JsonError(request, response, 'Não foi possível buscar os users'));
+        }
+    },
 
-export const createUsers = (req, res) => {   
-    const user = req.body
+    async update(request, response) {
+        try {
+            const { id } = request.params;
+            const users = await users.findOne({ where: { id } });
+            if (users) {
+                await users.update(request.body);
+                response.json({ status: '200', message: 'Usuario atualizado com sucesso ' });
+            } else {
+                response.status(404);
+                response.json(JsonError(request, response, 'Usuario não encontrado'));
+            }
+        } catch (error) {
+            response.status(500);
+            response.json(JsonError(request, response, 'Não foi possível atualizar o user'));
+        }
+    },
 
-    users.push({...user,})
-    
-    console.log(`User [${user.username}] added to the database.`)
-};
-
-export const deleteUsers = (req, res) => { 
-    console.log(`user with id ${req.params.id} has been deleted`)
-    
-    users = users.filter((user) => user.id !== req.params.id)
-};
-
-export const updateUsers =  (req,res) => {
-    const user = users.find((user) => user.id === req.params.id)
-    
-    user.username = req.body.username
-    user.age = req.body.age
-
-    console.log(`username has been updated to ${req.body.username}.age has been updated to ${req.body.age}`)
+    async delete(request, response) {
+        const { id } = request.params;
+        try {
+            const users = await users.findOne({ where: { id } });
+            if (users) {
+                await users.destroy();
+                response.json({ status: '200', message: 'Usuario deletado com sucesso' });
+            } else {
+                response.status(404);
+                response.json(JsonError(request, response, 'Usuario não encontrado'));
+            }
+        } catch (error) {
+            response.status(500);
+            response.json(JsonError(request, response, 'Não foi possível deletar o user'));
+        }
+    }
 };
