@@ -1,4 +1,11 @@
-Usando rotas API 
+--Iniciar projeto
+basta dar npm i para baixar as dependencies do projeto,
+em seguida node index.js para rodar aplicaçao global,
+a partir dela sera utilizado a porta 3000 do seu localhost,
+caso desejar visualizar no banco utilizei o dbeaver e pode encontra,
+as configuraçoes no arquivo .env
+
+--Usando rotas API 
 
 post - '/user' 
 ira criar usuario
@@ -14,6 +21,6 @@ ira apagar registro do usuario com base em seu id
 
 
 
-Observaçoes finais:
+--Observaçoes finais:
 os demais pontos como container e testes ainda estou em processo de estudo 
 e nao me senti seguro em implementar,por esse motivo nao implementei 
