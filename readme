@@ -1,0 +1,19 @@
+Usando rotas API 
+
+post - '/user' 
+ira criar usuario
+
+get - '/user'
+ira trazer todos usuarios
+
+put - '/user/:id'
+ira atualizar usuario com base no id alterando apenas campos na requisiçao
+
+delete - '/user/:id'
+ira apagar registro do usuario com base em seu id
+
+
+
+Observaçoes finais:
+os demais pontos como container e testes ainda estou em processo de estudo 
+e nao me senti seguro em implementar,por esse motivo nao implementei 
